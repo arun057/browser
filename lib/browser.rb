@@ -101,7 +101,7 @@ class Browser
   def modern?
     webkit? ||
     (firefox? && version.to_i >= 17) ||
-    (ie? && version.to_i >= 9) ||
+    (ie? && version.to_i >= 10) ||
     (opera? && version.to_i >= 12) ||
     (firefox? && tablet? && android? && version.to_i >= 14)
   end
