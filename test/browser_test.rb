@@ -14,8 +14,8 @@ class BrowserTest < Test::Unit::TestCase
   IE9_COMPAT            = "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.0; Trident/5.0)"
   IE10                  = "Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.1; Trident/6.0; EIE10;ENUSMSN)"
   IE10_COMPAT           = "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.1; Trident/6.0; SLCC2; .NET CLR 2.0.50727; .NET CLR 3.5.30729; .NET CLR 3.0.30729; Media Center PC 6.0; .NET4.0C; EIE10;ENUSMSN)"
-  IE11                  = "Mozilla/5.0 (Windows NT 6.3; Win64; x64; Trident/7.0; rv:11.0) like Gecko"
   IE11_TOUCH_SCREEN     = "Mozilla/5.0 (Windows NT 6.3; Win64; x64; Trident/7.0; Touch; rv:11.0) like Gecko"
+  IE11                  = "Mozilla/5.0 (Windows NT 6.1; Trident/7.0; rv:11.0) like Gecko"
   OPERA                 = "Opera/9.80 (Macintosh; Intel Mac OS X 10.7.4; U; en) Presto/2.10.229 Version/11.64"
   OPERA_NEXT            = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/28.0.1500.37 Safari/537.36 OPR/15.0.1147.44 (Edition Next)"
   FIREFOX               = "Mozilla/5.0 (X11; U; Linux i686; pl-PL; rv:1.9.0.2) Gecko/20121223 Ubuntu/9.25 (jaunty) Firefox/3.8"
@@ -37,6 +37,9 @@ class BrowserTest < Test::Unit::TestCase
   OPERA_MOBI            = "Opera/9.8 (Android 2.3.5; Linux; Opera Mobi/ADR-1205181138; U; en) Presto/2.10.254 Version/12.00"
   WINDOWS_PHONE         = "Mozilla/4.0 (compatible; MSIE 7.0; Windows Phone OS 7.0; Trident/3.1; IEMobile/7.0; DELL; Venue Pro)"
   WINDOWS_PHONE8        = "Mozilla/5.0 (compatible; MSIE 10.0; Windows Phone 8.0; Trident/6.0; IEMobile/10.0; ARM; Touch; NOKIA; Lumia 920)"
+  WINDOWS_MOBILE        = "Mozilla/4.0 (compatible; MSIE 6.0; Windows CE; IEMobile 6.12)"
+  WINDOWS8              = "Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Trident/6.0)"
+  WINDOWS81             = "Mozilla/5.0 (IE 11.0; Windows NT 6.3; Trident/7.0; .NET4.0E; .NET4.0C; rv:11.0) like Gecko"
   SURFACE               = "Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; ARM; Trident/6.0; Touch)"
   KINDLE                = "Mozilla/5.0 (Linux; U; en-US) AppleWebKit/528.5+ (KHTML, like Gecko, Safari/528.5+) Version/4.0 Kindle/3.0 (screen 600×800; rotate)"
   KINDLE_FIRE           = "Mozilla/5.0 (Linux; U; Android 2.3.4; en-us; Kindle Fire Build/GINGERBREAD) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1"
@@ -46,8 +49,14 @@ class BrowserTest < Test::Unit::TestCase
   IOS4                  = "Mozilla/5.0 (iPhone; U; CPU iPhone OS 4_0 like Mac OS X; en-us) AppleWebKit/532.9 (KHTML, like Gecko) Version/4.0.5 Mobile/8A293 Safari/6531.22.7"
   IOS5                  = "Mozilla/5.0 (iPhone; CPU iPhone OS 5_0 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Version/5.1 Mobile/9A334 Safari/7534.48.3"
   IOS6                  = "Mozilla/5.0 (iPhone; CPU iPhone OS 6_0 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10A5376e Safari/8536.25"
+  IOS7                  = "Mozilla/5.0 (iPhone; CPU iPhone OS 7_0 like Mac OS X) AppleWebKit/537.51.1 (KHTML, like Gecko) Version/7.0 Mobile/11A465 Safari/9537.53"
   PLAYBOOK              = "Mozilla/5.0 (PlayBook; U; RIM Tablet OS 2.1.0; en-US) AppleWebKit/536.2+ (KHTML, like Gecko) Version/7.2.1.0 Safari/536.2+"
-  CHROME                = "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_4; en-US) AppleWebKit/533.4 (KHTML, like Gecko) Chrome/5.0.375.99 Safari/533.4"
+  NINTENDO_WII          = "Opera/9.00 (Nintendo Wii; U; ; 1309-9; en)"
+  NINTENDO_WIIU         = "Mozilla/5.0 (Nintendo WiiU) AppleWebKit/534.52 (KHTML, like Gecko) NX/2.1.0.8.23 NintendoBrowser/1.1.0.7579.EU"
+  PLAYSTATION3          = "Mozilla/5.0 (PLAYSTATION 3; 3.55)"
+  PLAYSTATION4          = "Mozilla/5.0 (PlayStation 4 1.020) AppleWebKit/536.26 (KHTML, like Gecko)"
+  XBOX360               = "Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0; Xbox), or Mozilla/5.0 (compatible; MSIE 9.0; Windows Phone OS 7.5; Trident/5.0; IEMobile/9.0; Xbox)"
+  XBOXONE               = "Mozilla/5.0 (Compatible; MSIE 10.0; Windows NT 6.2; Trident /6.0; Xbox; Xbox One)"
   GOOGLE_BOT            = "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)"
   MSN_BOT               = "msnbot-media/1.1 (+http://search.msn.com/msnbot.htm)"
   FACEBOOK_BOT          = "facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)"
@@ -164,6 +173,12 @@ class BrowserTest < Test::Unit::TestCase
     assert @browser.ios6?
   end
 
+  def test_detect_ios7
+    @browser.ua = IOS7
+    assert @browser.ios?
+    assert @browser.ios7?
+  end
+
   def test_detect_ie6
     @browser.ua = IE6
 
@@ -269,6 +284,7 @@ class BrowserTest < Test::Unit::TestCase
     assert @browser.ie11?
     assert @browser.modern?
     assert ! @browser.compatibility_view?
+<<<<<<< HEAD
     assert ! @browser.windows_touchscreen_desktop?
     assert @browser.windows8?
     assert_equal "11.0", @browser.full_version
@@ -286,6 +302,8 @@ class BrowserTest < Test::Unit::TestCase
     assert ! @browser.windows_rt?
     assert @browser.windows_touchscreen_desktop?
     assert @browser.windows8?
+=======
+>>>>>>> 362cb0f14b715b4a3966a3460da8e35cdc06ad12
     assert_equal "11.0", @browser.full_version
     assert_equal "11", @browser.version
   end
@@ -468,9 +486,15 @@ class BrowserTest < Test::Unit::TestCase
     @browser.ua = "MIDP-2.0"
     assert @browser.mobile?
     assert ! @browser.tablet?
+  end
 
-    @browser.ua = "Windows CE"
+  def test_detect_windows_mobile
+    @browser.ua = WINDOWS_MOBILE
+
     assert @browser.mobile?
+    assert @browser.windows?
+    assert @browser.windows_mobile?
+    assert ! @browser.windows_phone?
     assert ! @browser.tablet?
   end
 
@@ -566,16 +590,33 @@ class BrowserTest < Test::Unit::TestCase
   def test_detect_mac_platform
     @browser.ua = "Mac OS X"
     assert_equal :mac, @browser.platform
+    assert @browser.mac?
   end
 
   def test_detect_windows_platform
     @browser.ua = "Windows"
     assert_equal :windows, @browser.platform
+    assert @browser.windows?
+  end
+
+  def test_detect_windows8
+    @browser.ua = WINDOWS8
+
+    assert @browser.windows?
+    assert @browser.windows8?
+  end
+
+  def test_detect_windows8_1
+    @browser.ua = WINDOWS81
+
+    assert @browser.windows?
+    assert @browser.windows8?
   end
 
   def test_detect_linux_platform
     @browser.ua = "Linux"
     assert_equal :linux, @browser.platform
+    assert @browser.linux?
   end
 
   def test_detect_unknown_platform
@@ -637,6 +678,8 @@ class BrowserTest < Test::Unit::TestCase
     assert @browser.ie?
     assert_equal "7", @browser.version
     assert @browser.mobile?
+    assert @browser.windows_phone?
+    assert ! @browser.windows_mobile?
     assert ! @browser.tablet?
   end
 
@@ -646,6 +689,19 @@ class BrowserTest < Test::Unit::TestCase
     assert @browser.ie?
     assert_equal "10", @browser.version
     assert @browser.mobile?
+    assert @browser.windows_phone?
+    assert ! @browser.windows_mobile?
+    assert ! @browser.tablet?
+  end
+
+  def test_windows_mobile
+    @browser.ua = WINDOWS_PHONE8
+
+    assert @browser.ie?
+    assert_equal "10", @browser.version
+    assert @browser.mobile?
+    assert @browser.windows_phone?
+    assert ! @browser.windows_mobile?
     assert ! @browser.tablet?
   end
 
@@ -695,6 +751,48 @@ class BrowserTest < Test::Unit::TestCase
 
     assert @browser.tablet?
     assert ! @browser.mobile?
+  end
+
+  def test_nintendo_wii
+    @browser.ua = NINTENDO_WII
+
+    assert @browser.console?
+    assert @browser.nintendo?
+  end
+
+  def test_nintendo_wii_u
+    @browser.ua = NINTENDO_WIIU
+
+    assert @browser.console?
+    assert @browser.nintendo?
+  end
+
+  def test_playstation_3
+    @browser.ua = PLAYSTATION3
+
+    assert @browser.console?
+    assert @browser.playstation?
+  end
+
+  def test_playstation_4
+    @browser.ua = PLAYSTATION4
+
+    assert @browser.console?
+    assert @browser.playstation?
+  end
+
+  def test_xbox_360
+    @browser.ua = XBOX360
+
+    assert @browser.console?
+    assert @browser.xbox?
+  end
+
+  def test_xbox_one
+    @browser.ua = XBOXONE
+
+    assert @browser.console?
+    assert @browser.xbox?
   end
 
   def test_remove_duplicate_items

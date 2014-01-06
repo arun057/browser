@@ -8,6 +8,7 @@ require "browser/methods/ie"
 require "browser/methods/platform"
 require "browser/methods/mobile"
 require "browser/methods/devices"
+require "browser/methods/consoles"
 require "browser/methods/language"
 require "browser/methods/bots"
 
@@ -27,6 +28,7 @@ class Browser
   include Platform
   include Mobile
   include Devices
+  include Consoles
   include Language
   include Bots
 
@@ -36,28 +38,32 @@ class Browser
   alias :ua= :user_agent=
 
   NAMES = {
-    :android    => "Android",
-    :blackberry => "BlackBerry",
-    :chrome     => "Chrome",
-    :core_media => "Apple CoreMedia",
-    :firefox    => "Firefox",
-    :ie         => "Internet Explorer",
-    :ipad       => "iPad",
-    :iphone     => "iPhone",
-    :ipod       => "iPod Touch",
-    :opera      => "Opera",
-    :phantom_js => "PhantomJS",
-    :psp        => "PlayStation Portable",
-    :quicktime  => "QuickTime",
-    :safari     => "Safari",
+    :android     => "Android",
+    :blackberry  => "BlackBerry",
+    :chrome      => "Chrome",
+    :core_media  => "Apple CoreMedia",
+    :firefox     => "Firefox",
+    :ie          => "Internet Explorer",
+    :ipad        => "iPad",
+    :iphone      => "iPhone",
+    :ipod        => "iPod Touch",
+    :nintendo    => "Nintendo",
+    :opera       => "Opera",
+    :phantom_js  => "PhantomJS",
+    :psp         => "PlayStation Portable",
+    :playstation => "PlayStation",
+    :quicktime   => "QuickTime",
+    :safari      => "Safari",
+    :xbox      => "Xbox",
 
     # This must be last item, since Ruby 1.9+ has ordered keys.
     :other      => "Other",
   }
 
   VERSIONS = {
-    :default => %r[(?:Version|MSIE|Trident\/.*rv|Firefox|Chrome|CriOS|QuickTime|BlackBerry[^/]+|CoreMedia v|PhantomJS)[/ :]?([a-z0-9.]+)]i,
-    :opera => %r[(?:Opera/.*? Version/([\d.]+)|Chrome/([\d.]+).*?OPR)]
+    :default => %r[(?:Version|MSIE|Firefox|Chrome|CriOS|QuickTime|BlackBerry[^/]+|CoreMedia v|PhantomJS)[/ ]?([a-z0-9.]+)]i,
+    :opera => %r[(?:Opera/.*? Version/([\d.]+)|Chrome/([\d.]+).*?OPR)],
+    :ie => %r[(?:MSIE |Trident/.*?; rv:)([\d.]+)]
   }
 
   # Create a new browser instance and set
@@ -100,10 +106,10 @@ class Browser
   # Return true if browser is modern (Webkit, Firefox 17+, IE9+, Opera 12+).
   def modern?
     webkit? ||
-    (firefox? && version.to_i >= 17) ||
-    (ie? && version.to_i >= 9) ||
-    (opera? && version.to_i >= 12) ||
-    (firefox? && tablet? && android? && version.to_i >= 14)
+    newer_firefox? ||
+    newer_ie? ||
+    newer_opera? ||
+    newer_firefox_tablet?
   end
 
   # Detect if browser is WebKit-based.
@@ -164,5 +170,22 @@ class Browser
   # Return meta representation as string.
   def to_s
     meta.to_a.join(" ")
+  end
+
+  private
+  def newer_firefox?
+    firefox? && version.to_i >= 17
+  end
+
+  def newer_ie?
+    ie? && version.to_i >= 9
+  end
+
+  def newer_opera?
+    opera? && version.to_i >= 12
+  end
+
+  def newer_firefox_tablet?
+    firefox? && tablet? && android? && version.to_i >= 14
   end
 end
