@@ -284,9 +284,7 @@ class BrowserTest < Test::Unit::TestCase
     assert @browser.ie11?
     assert @browser.modern?
     assert ! @browser.compatibility_view?
-<<<<<<< HEAD
     assert ! @browser.windows_touchscreen_desktop?
-    assert @browser.windows8?
     assert_equal "11.0", @browser.full_version
     assert_equal "11", @browser.version
   end
@@ -302,8 +300,6 @@ class BrowserTest < Test::Unit::TestCase
     assert ! @browser.windows_rt?
     assert @browser.windows_touchscreen_desktop?
     assert @browser.windows8?
-=======
->>>>>>> 362cb0f14b715b4a3966a3460da8e35cdc06ad12
     assert_equal "11.0", @browser.full_version
     assert_equal "11", @browser.version
   end
